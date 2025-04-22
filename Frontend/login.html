@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body class="d-flex justify-content-center align-items-center vh-100">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 p-4 shadow rounded">
+            <h2 class="text-center">Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="username" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Login</button>
+            </form>
+            <p class="mt-3 text-danger text-center" id="errorMsg" style="display: none;">Invalid credentials. Please try again.</p>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $('#loginForm').submit(function (e) {
+        e.preventDefault();
+
+        const username = $('#username').val();
+        const password = $('#password').val();
+        const authHeader = 'Basic ' + btoa(username + ':' + password);
+
+        $.ajax({
+            url: 'http://localhost:8080/api/v1/customer/check-auth', // A protected endpoint
+            type: 'GET',
+            headers: {
+                'Authorization': authHeader
+            },
+            success: function () {
+                sessionStorage.setItem('authHeader', authHeader);
+                window.location.href = 'customer.html';
+            },
+            error: function () {
+                $('#errorMsg').show();
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
