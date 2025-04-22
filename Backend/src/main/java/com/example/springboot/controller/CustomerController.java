@@ -15,8 +15,8 @@ public class CustomerController {
     private CustomerService customerService;
 
     @GetMapping("/check-auth")
-    public ResponseEntity<String> checkAuth() {
-        return ResponseEntity.ok("Authenticated");
+    public void checkAuth() {
+        System.out.println("Authenticated successfully!");
     }
 
     @PostMapping

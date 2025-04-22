@@ -30,26 +30,28 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $('#loginForm').submit(function (e) {
-        e.preventDefault();
+    $(document).ready(function () {
+        $('#loginForm').submit(function (event) {
+            event.preventDefault();
 
-        const username = $('#username').val();
-        const password = $('#password').val();
-        const authHeader = 'Basic ' + btoa(username + ':' + password);
+            var username = $('#username').val();
+            var password = $('#password').val();
+            var authHeader = 'Basic ' + btoa(username + ':' + password);
 
-        $.ajax({
-            url: 'http://localhost:8080/api/v1/customer/check-auth',
-            type: 'GET',
-            headers: {
-                'Authorization': authHeader
-            },
-            success: function () {
-                sessionStorage.setItem('authHeader', authHeader);
-                window.location.href = 'customer.html';
-            },
-            error: function () {
-                $('#errorMsg').show();
-            }
+            $.ajax({
+                url: 'http://localhost:8080/api/v1/customer/check-auth',
+                type: 'GET',
+                headers: {
+                    'Authorization': authHeader
+                },
+                success: function () {
+                    sessionStorage.setItem('authHeader', authHeader);
+                    window.location.href = 'customer.html';
+                },
+                error: function () {
+                    $('#errorMsg').show();
+                }
+            });
         });
     });
 </script>

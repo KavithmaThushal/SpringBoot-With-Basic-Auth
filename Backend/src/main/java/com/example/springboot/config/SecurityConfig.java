@@ -9,8 +9,8 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
+    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity
                 .csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/api/v1/**")
@@ -21,6 +21,6 @@ public class SecurityConfig {
                 .and()
                 .cors();
 
-        return http.build();
+        return httpSecurity.build();
     }
 }
