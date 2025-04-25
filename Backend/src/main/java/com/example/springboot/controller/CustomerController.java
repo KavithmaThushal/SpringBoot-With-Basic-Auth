@@ -14,11 +14,6 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @GetMapping("/check-auth")
-    public void checkAuth() {
-        System.out.println("Authenticated successfully!");
-    }
-
     @PostMapping
     public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO) {
         return customerService.saveCustomer(customerDTO);
